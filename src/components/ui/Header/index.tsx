@@ -1,9 +1,10 @@
 import React, { ChangeEvent, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import {Button, Tab, Tabs, useScrollTrigger, Toolbar, AppBar, Menu, MenuItem} from "@material-ui/core";
+import {Button, useScrollTrigger, Toolbar, AppBar, useMediaQuery, useTheme} from "@material-ui/core";
 import {useStyles} from "./styles";
 
 import logo from '../../../assets/logo.svg';
+import { HeaderTabs } from './HeaderTabs';
 
 interface Props {
     children: React.ReactElement;
@@ -24,6 +25,8 @@ function ElevationScroll(props: Props) {
 
 export function Header() {
     const classes = useStyles();
+    const theme = useTheme();
+    const matches = useMediaQuery(theme.breakpoints.down('md'));
     const [tabValue, setTabValue] = useState(0);
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [menuOpen, setMenuOpen] = useState(false);
@@ -48,13 +51,6 @@ export function Header() {
         setAnchorEl(null);
         setMenuOpen(false)
     }
-
-    const menuOptions = [
-        {name: 'Services', link: '/services'},
-        {name: 'Custom Software Development', link: '/customsoftware'},
-        {name: 'Mobile Apps Development', link: '/mobileapps'},
-        {name: 'Website Development', link: '/websites'},
-    ]
 
     useEffect( () => {
 
@@ -113,6 +109,8 @@ export function Header() {
         }
     }, [tabValue])
 
+    
+
     return (
         <>
             <ElevationScroll>
@@ -127,52 +125,21 @@ export function Header() {
                         >
                             <img src={logo} alt="company logo" className={classes.logo} />
                         </Button>
-                        <Tabs 
-                            className={classes.tabContainer} 
-                            value={tabValue}
-                            onChange={handleChangeTab}
-                        >
-                            <Tab label="Home" component={Link} to="/" />
-                            <Tab 
-                                aria-owns={anchorEl ? 'simple-menu' : undefined}
-                                aria-haspopup={anchorEl ? 'true' : undefined}
-                                onMouseOver={ handleClick }
-                                label="Services" 
-                                component={Link} 
-                                to="/services"
-                            />
-                            <Tab label="The Revolution" component={Link} to="/revolution" />
-                            <Tab label="About Us" component={Link} to="/about" />
-                            <Tab label="Contact Us" component={Link} to="/contact" />
-                        </Tabs>
-                        <Button variant="contained" color="secondary"
-                        className={classes.button}>
-                            Free Estimate
-                        </Button>
-                        <Menu id="simple-menu" anchorEl={anchorEl} open={menuOpen}
-                            onClose={handleClose}
-                            MenuListProps={{onMouseLeave: handleClose}}
-                            classes={{paper: classes.menu}}
-                            elevation={0}
-                        >
-                            {
-                                menuOptions.map((option, i) => (
-                                    <MenuItem 
-                                        key={option.name}
-                                        onClick={(event: React.MouseEvent<HTMLAnchorElement>) => {
-                                            handleMenuItemClick(event, i)
-                                            setTabValue(1)
-                                            handleClose()
-                                        }} 
-                                        component={Link} 
-                                        to={option.link}
-                                        selected={i === selectedMenuIndex && tabValue === 1}
-                                    >
-                                        {option.name}
-                                    </MenuItem>
-                                ))
-                            }
-                        </Menu>
+                        {
+                            matches 
+                            ? null 
+                            : <HeaderTabs 
+                                tabValue={tabValue} 
+                                setTabValue={setTabValue}
+                                handleClick={handleClick} 
+                                handleChangeTab={handleChangeTab}
+                                anchorEl={anchorEl}
+                                menuOpen={menuOpen}
+                                handleClose={handleClose}
+                                handleMenuItemClick={handleMenuItemClick}
+                                selectedMenuIndex={selectedMenuIndex}
+                              />
+                        }
                     </Toolbar>
                 </AppBar>
             </ElevationScroll>

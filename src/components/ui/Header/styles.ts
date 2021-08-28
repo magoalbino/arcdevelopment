@@ -5,26 +5,22 @@ export const useStyles = makeStyles((theme: Theme) =>
     createStyles({
     toolbarMargin: {
         ...theme.mixins.toolbar,
-        marginBottom: "3rem"
-    },
-    logo: {
-        height: "7.2em"
-    },
-    tabContainer: {
-        marginLeft: 'auto',
-        '& .MuiButtonBase-root': { //Tab
-            ...theme.typography.tab,
-            minWidth: 10,
-            marginLeft: '25px',
-            lineHeight: '5.75rem',
+        marginBottom: "3rem",
+        [theme.breakpoints.down("md")]: {
+            marginBottom: "2em",
+        },
+        [theme.breakpoints.down("xs")]: {
+            marginBottom: "1.55em",
         }
     },
-    button: { 
-        ...theme.typography.estimate,
-        borderRadius: '50px',
-        marginLeft: '50px',
-        marginRight: '25px',
-        height: '45px',
+    logo: {
+        height: "7.2em",
+        [theme.breakpoints.down("md")]: {
+            height: "6.2em",
+        },
+        [theme.breakpoints.down("xs")]: {
+            height: "5em",
+        }
     },
     logoContainer: { 
         padding: 0,
@@ -32,18 +28,6 @@ export const useStyles = makeStyles((theme: Theme) =>
             backgroundColor: 'transparent',
         }
     },
-    menu: { 
-        backgroundColor: theme.palette.common.blue,
-        color: "white",
-        borderRadius: 0,
-        '& .MuiMenuItem-root': {
-            ...theme.typography.tab,
-            opacity: 0.7,
-            '&:hover': {
-                opacity: 1
-            }
-        }
-    }
 }));
 
 
