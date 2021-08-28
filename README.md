@@ -1,8 +1,16 @@
-# Getting Started with Create React App
+# Arc Developtment
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) with typescript.
+Desenvolvimento do site Arc Developtment em ReactJS utilizando o framework Material UI
 
-## 
+- yarn install
+- yarn start
+
+## Modificações próprias
+Foi adicionado typescript ao projeto para padronizar a aplicação, estudando como os componentes do material ui funcionam para que sejam adicionados os tipos corretos.
+
+Modularização da aplicação, separando 'pedaços' da página em componentes, seguindo um padrão de organização mais parecido com o utilizado pela rocketseat.
+
+## Anotações interessantes
 
 Sempre importante otimizar todas as imagens do site/app.
 Avaliação do google para seu site: [PageSpeed](developers.google.com/speed/pagespeed/insights)
