@@ -32,6 +32,18 @@ export const useStyles = makeStyles((theme: Theme) =>
             backgroundColor: 'transparent',
         }
     },
+    menu: { 
+        backgroundColor: theme.palette.common.blue,
+        color: "white",
+        borderRadius: 0,
+        '& .MuiMenuItem-root': {
+            ...theme.typography.tab,
+            opacity: 0.7,
+            '&:hover': {
+                opacity: 1
+            }
+        }
+    }
 }));
 
 
