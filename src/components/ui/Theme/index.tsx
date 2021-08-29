@@ -8,8 +8,6 @@ declare module "@material-ui/core/styles/createPalette" {
         blue: string;
         orange: string;
     }
-
-
 }
 
 declare module "@material-ui/core/styles/createTypography" {
