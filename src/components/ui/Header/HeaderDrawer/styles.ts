@@ -1,6 +1,9 @@
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 
-export const useStyles = makeStyles(() =>
+//aparentemente é meio complicado fazer isso sem o ts-ignore:
+
+// @ts-ignore
+export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     drawerIconContainer: {
       marginLeft: "auto",
@@ -11,6 +14,13 @@ export const useStyles = makeStyles(() =>
     drawerIcon: {
       height: "50px",
       width: "50px",
+    },
+    drawer: {
+      backgroundColor: theme.palette.common.blue,
+      "& .MuiListItemText-root": {
+        ...theme.typography.tab,
+        color: "white",
+      },
     },
   })
 );

@@ -3,6 +3,7 @@ import { Tabs, Tab, Button, Menu, MenuItem } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
 import { useStyles } from "./styles";
+import { menuOptions } from "../config";
 
 interface HeaderTabsProps {
   tabValue: number;
@@ -31,13 +32,6 @@ export function HeaderTabs({
   selectedMenuIndex,
 }: HeaderTabsProps) {
   const classes = useStyles();
-
-  const menuOptions = [
-    { name: "Services", link: "/services" },
-    { name: "Custom Software Development", link: "/customsoftware" },
-    { name: "Mobile Apps Development", link: "/mobileapps" },
-    { name: "Website Development", link: "/websites" },
-  ];
 
   return (
     <>
