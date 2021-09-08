@@ -17,9 +17,28 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     drawer: {
       backgroundColor: theme.palette.common.blue,
+    },
+    drawerItem: {
+      ...theme.typography.tab,
+      color: "white",
+      opacity: 0.7,
+    },
+    drawerItemSelected: {
       "& .MuiListItemText-root": {
-        ...theme.typography.tab,
-        color: "white",
+        opacity: 1,
+      },
+    },
+    drawerItemEstimate: {
+      backgroundColor: theme.palette.common.orange,
+    },
+    toolbarMargin: {
+      ...theme.mixins.toolbar,
+      marginBottom: "3rem",
+      [theme.breakpoints.down("md")]: {
+        marginBottom: "2em",
+      },
+      [theme.breakpoints.down("xs")]: {
+        marginBottom: "1.55em",
       },
     },
   })

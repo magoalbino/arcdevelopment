@@ -1,37 +1,45 @@
-import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import { Tabs, Tab, Button, Menu, MenuItem } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
 import { useStyles } from "./styles";
-import { menuOptions } from "../config";
+import { useRoutes } from "../../../Hooks/Routes/useRoutes";
 
-interface HeaderTabsProps {
-  tabValue: number;
-  anchorEl: HTMLElement | null;
-  openMenu: boolean;
-  setTabValue: Dispatch<SetStateAction<number>>;
-  selectedMenuIndex: number;
-  handleClick: (e: React.MouseEvent<HTMLAnchorElement>) => void;
-  handleChangeTab: (e: ChangeEvent<{}>, value: number) => void;
-  handleClose: () => void;
-  handleMenuItemClick: (
+export function HeaderTabs() {
+  const classes = useStyles();
+  const {
+    tabValue,
+    setTabValue,
+    selectedMenuIndex,
+    setSelectedMenuIndex,
+    menuOptions,
+    pageList,
+  } = useRoutes();
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [openMenu, setOpenMenu] = useState(false);
+
+  const handleChangeTab = (e: ChangeEvent<{}>, value: number) => {
+    setTabValue(value);
+  };
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    setAnchorEl(e.currentTarget);
+    setOpenMenu(true);
+  };
+
+  const handleMenuItemClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     i: number
-  ) => void;
-}
+  ) => {
+    setAnchorEl(null);
+    setOpenMenu(false);
+    setSelectedMenuIndex(i);
+  };
 
-export function HeaderTabs({
-  tabValue,
-  setTabValue,
-  handleClick,
-  handleChangeTab,
-  anchorEl,
-  openMenu,
-  handleClose,
-  handleMenuItemClick,
-  selectedMenuIndex,
-}: HeaderTabsProps) {
-  const classes = useStyles();
+  const handleClose = () => {
+    setAnchorEl(null);
+    setOpenMenu(false);
+  };
 
   return (
     <>
@@ -40,18 +48,21 @@ export function HeaderTabs({
         value={tabValue}
         onChange={handleChangeTab}
       >
-        <Tab label="Home" component={Link} to="/" />
-        <Tab
-          aria-owns={anchorEl ? "simple-menu" : undefined}
-          aria-haspopup={anchorEl ? "true" : undefined}
-          onMouseOver={handleClick}
-          label="Services"
-          component={Link}
-          to="/services"
-        />
-        <Tab label="The Revolution" component={Link} to="/revolution" />
-        <Tab label="About Us" component={Link} to="/about" />
-        <Tab label="Contact Us" component={Link} to="/contact" />
+        {pageList.map((page, index) =>
+          index !== 5 ? (
+            <Tab
+              key={page.link}
+              label={page.name}
+              component={Link}
+              to={page.link}
+              aria-owns={anchorEl ? "simple-menu" : undefined}
+              aria-haspopup={anchorEl ? "true" : undefined}
+              onMouseOver={index === 1 ? handleClick : undefined}
+            />
+          ) : (
+            ""
+          )
+        )}
       </Tabs>
       <Button variant="contained" color="secondary" className={classes.button}>
         Free Estimate
@@ -64,6 +75,7 @@ export function HeaderTabs({
         MenuListProps={{ onMouseLeave: handleClose }}
         classes={{ paper: classes.menu }}
         elevation={0}
+        style={{ zIndex: 1302 }}
       >
         {menuOptions.map((option, i) => (
           <MenuItem

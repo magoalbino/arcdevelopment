@@ -1,35 +1,38 @@
-import {makeStyles, createStyles} from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 // @ts-ignore
 export const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
+  createStyles({
     toolbarMargin: {
-        ...theme.mixins.toolbar,
-        marginBottom: "3rem",
-        [theme.breakpoints.down("md")]: {
-            marginBottom: "2em",
-        },
-        [theme.breakpoints.down("xs")]: {
-            marginBottom: "1.55em",
-        }
+      ...theme.mixins.toolbar,
+      marginBottom: "3rem",
+      [theme.breakpoints.down("md")]: {
+        marginBottom: "2em",
+      },
+      [theme.breakpoints.down("xs")]: {
+        marginBottom: "1.55em",
+      },
     },
     logo: {
-        height: "7.2em",
-        [theme.breakpoints.down("md")]: {
-            height: "6.2em",
-        },
-        [theme.breakpoints.down("xs")]: {
-            height: "5em",
-        }
+      height: "7.2em",
+      [theme.breakpoints.down("md")]: {
+        height: "6.2em",
+      },
+      [theme.breakpoints.down("xs")]: {
+        height: "5em",
+      },
     },
-    logoContainer: { 
-        padding: 0,
-        "&:hover": {
-            backgroundColor: 'transparent',
-        }
+    logoContainer: {
+      padding: 0,
+      "&:hover": {
+        backgroundColor: "transparent",
+      },
     },
-}));
-
+    appBar: {
+      zIndex: theme.zIndex.modal + 1,
+    },
+  })
+);
 
 //https://gist.github.com/Danilo-Araujo-Silva/2ce11fd0540dcc7eb3ad3e67fd75d02a
 

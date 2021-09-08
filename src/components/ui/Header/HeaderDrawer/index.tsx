@@ -1,4 +1,4 @@
-import { SetStateAction, Dispatch } from "react";
+import { useState } from "react";
 import {
   SwipeableDrawer,
   IconButton,
@@ -10,22 +10,20 @@ import {
 import MenuIcon from "@material-ui/icons/Menu";
 
 import { useStyles } from "./styles";
-import { menuOptions, pageList } from "../config";
 import { Link } from "react-router-dom";
+import { useRoutes } from "../../../Hooks/Routes/useRoutes";
 
 interface Process extends NodeJS.Process {
   browser: boolean;
 }
 
-interface HeaderDrawerProps {
-  openDrawer: boolean;
-  setOpenDrawer: Dispatch<SetStateAction<boolean>>;
-}
-
-export function HeaderDrawer({ openDrawer, setOpenDrawer }: HeaderDrawerProps) {
+export function HeaderDrawer() {
   const iOS =
     (process as Process).browser &&
     /iPad|iPhone|iPad|iPod/.test(navigator.userAgent);
+
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const { tabValue, setTabValue, pageList } = useRoutes();
 
   const classes = useStyles();
 
@@ -39,6 +37,7 @@ export function HeaderDrawer({ openDrawer, setOpenDrawer }: HeaderDrawerProps) {
         onOpen={() => setOpenDrawer(true)}
         classes={{ paper: classes.drawer }}
       >
+        <div className={classes.toolbarMargin}></div>
         <List disablePadding>
           {pageList.map((page, i) => (
             <ListItem
@@ -47,23 +46,21 @@ export function HeaderDrawer({ openDrawer, setOpenDrawer }: HeaderDrawerProps) {
               key={page.name}
               component={Link}
               to={page.link}
-              onClick={() => setOpenDrawer(false)}
+              onClick={() => {
+                setOpenDrawer(false);
+                setTabValue(i);
+              }}
+              classes={{
+                selected: classes.drawerItemSelected,
+                root:
+                  page.link === "/estimate" ? classes.drawerItemEstimate : "",
+              }}
+              selected={i === tabValue}
             >
-              <ListItemText disableTypography>{page.name}</ListItemText>
+              <ListItemText disableTypography className={classes.drawerItem}>
+                {page.name}
+              </ListItemText>
             </ListItem>
-            // <MenuItem
-            //   key={option.name}
-            //   onClick={(event: React.MouseEvent<HTMLAnchorElement>) => {
-            //     handleMenuItemClick(event, i);
-            //     setTabValue(1);
-            //     handleClose();
-            //   }}
-            //   component={Link}
-            //   to={option.link}
-            //   selected={i === selectedMenuIndex && tabValue === 1}
-            // >
-            //   {option.name}
-            // </MenuItem>
           ))}
         </List>
       </SwipeableDrawer>
