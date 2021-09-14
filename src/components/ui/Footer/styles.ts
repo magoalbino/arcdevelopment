@@ -32,5 +32,21 @@ export const useStyles = makeStyles((theme: Theme) =>
     gridItem: {
       margin: "3em",
     },
+    icon: {
+      width: "4em",
+      height: "4em",
+      [theme.breakpoints.down("xs")]: {
+        height: "2.5em",
+        width: "2.5em",
+      },
+    },
+    socialContainer: {
+      position: "absolute",
+      marginTop: "-6em",
+      right: "1.5em",
+      [theme.breakpoints.down("xs")]: {
+        right: "0.6em",
+      },
+    },
   })
 );

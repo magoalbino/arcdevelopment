@@ -4,6 +4,7 @@ import { theme } from "./ui/Theme";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Footer } from "./ui/Footer";
 import { RouteProvider } from "./Hooks/Routes/useRoutes";
+import { LandingPage } from "./LandingPage";
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
         <BrowserRouter>
           <Header />
           <Switch>
-            <Route exact path="/" component={() => <div>Home</div>} />
+            {/* caso seja preciso passar um componente com propriedades, não da pra usar 'component', e sim 'render' */}
+            <Route exact path="/" component={LandingPage} />
             <Route
               exact
               path="/services"
